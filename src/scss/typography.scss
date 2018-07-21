@@ -1,0 +1,89 @@
+@import url("https://use.typekit.net/zcu1vkz.css");
+
+// variables
+$komet: "komet", Helvetica, Arial, sans-serif;
+$baron_neue: "Baron Neue", Arial;
+$min_width: 320px;
+$max_width: 1440px;
+$min_font: 12px;
+$max_font: 16px;
+$desktop_scale: 1.414;
+$mobile_scale: 1.3;
+
+// strips units from values fed to it
+@function strip-unit($value) {
+  @return $value / ($value * 0 + 1);
+}
+
+// exponent function
+@function pow($number, $exponent) {
+  $value: 1;
+
+  @if $exponent > 0 {
+    @for $i from 1 through $exponent {
+      $value: $value * $number;
+    }
+  }
+
+  @return $value;
+}
+
+// generates fluid type rules that make font size respond to viewport width
+@mixin fluid-type($min-vw, $max-vw, $min-font-size, $max-font-size) {
+  $u1: unit($min-vw);
+  $u2: unit($max-vw);
+  $u3: unit($min-font-size);
+  $u4: unit($max-font-size);
+
+  @if $u1 == $u2 and $u1 == $u3 and $u1 == $u4 {
+    & {
+      font-size: $min-font-size;
+
+      @media screen and (min-width: $min-vw) {
+        font-size: calc(#{$min-font-size} + #{strip-unit($max-font-size - $min-font-size)} * ((100vw - #{$min-vw}) / #{strip-unit($max-vw - $min-vw)}));
+      }
+
+      @media screen and (min-width: $max-vw) {
+        font-size: $max-font-size;
+      }
+    }
+  }
+}
+
+html {
+  font-size: 16px;
+  font-family: $komet;
+}
+
+body {
+  @include fluid-type($min_width, $max_width, $min_font, $max_font);
+
+  font-family: $komet;
+}
+
+// defines header rules
+@for $heading from 1 to 5 {
+  h#{$heading}, .h#{$heading} {
+    font-size: #{pow($desktop_scale, 5 - $heading)}rem;
+
+    @include fluid-type($min_width, $max_width, pow($mobile_scale, 5 - $heading) * $min_font, pow($desktop_scale, 5 - $heading) * $max_font);
+
+    font-family: $komet, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    font-weight: 400;
+    margin: 0;
+  }
+}
+
+// overides font-family defined above
+h1 {
+  font-family: 'Baron Neue', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+body,
+input,
+textarea,
+button,
+select {
+  -webkit-font-smoothing: antialiased;
+  text-size-adjust: 100%;
+}
