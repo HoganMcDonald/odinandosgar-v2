@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Route, Switch, BrowserRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Media } from 'helpers';
 
+import { Media } from 'helpers';
 import Home from 'app/home/Home';
 import { updateDeviceType } from 'actions';
 import 'scss/typography.scss';
@@ -28,6 +28,7 @@ class App extends Component {
     return (
       <BrowserRouter>
         <Switch>
+          <Route path="/shop" component={Home} />
           <Route path="/" component={Home} />
         </Switch>
       </BrowserRouter>
@@ -45,5 +46,7 @@ const mapDispatchToProps = dispatch => ({
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  mapDispatchToProps,
+  undefined,
+  { pure: false }
 )(App);
