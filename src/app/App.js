@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import { Media } from 'helpers';
 import Home from 'app/home/Home';
-import { updateDeviceType, updateHeaderIsLarge } from 'actions';
+import { updateDeviceType, updateHeaderIsLarge } from 'actions/ui';
 import { selectHeaderIsLarge } from 'selectors';
 import 'scss/typography.scss';
 
