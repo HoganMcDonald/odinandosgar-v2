@@ -1,7 +1,12 @@
-import { CHANGE_DEVICE_TYPE } from '../constants';
+import { CHANGE_DEVICE_TYPE, CHANGE_HEADER_HEIGHT } from '../constants';
 
 //action creator
 export const updateDeviceType = deviceType => ({
   type: CHANGE_DEVICE_TYPE,
   deviceType
+});
+
+export const updateHeaderIsLarge = headerIsLarge => ({
+  type: CHANGE_HEADER_HEIGHT,
+  headerIsLarge
 });

@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { NavLink, Link, withRouter } from 'react-router-dom';
+import classNames from 'classnames';
 
-import { selectDeviceType } from 'selectors';
+import { selectDeviceType, selectHeaderIsLarge } from 'selectors';
 import Logo from 'svgs/Logo';
 import LogoSquare from 'svgs/LogoSquare';
 import './Header.scss';
@@ -11,23 +12,40 @@ class Header extends Component {
   render() {
     const className = 'site-header';
 
+    const isMobile =
+      this.props.deviceType === 'tablet' || this.props.deviceType === 'mobile';
+
+    const style = {
+      height: this.props.headerIsLarge && !isMobile ? '180px' : '108px'
+    };
+
     return (
-      <header className={className}>
+      <header
+        className={classNames(className, {
+          [`${className}--large`]: this.props.headerIsLarge || isMobile
+        })}
+        style={style}
+      >
         <div className={`${className}__container`}>
           {/* logo section */}
-          {(this.props.deviceType === 'tablet' ||
-            this.props.deviceType === 'mobile') && (
-            <LogoSquare
-              className={`${className}__logo ${className}__logo--large`}
-            />
-          )}
-          {this.props.deviceType === 'desktop' && (
-            <Link to="/" className={`${className}__logo-link`}>
-              <Logo
+          <Link
+            to="/"
+            className={classNames(`${className}__logo-link`, {
+              [`${className}__logo-link--open`]:
+                this.props.headerIsLarge || isMobile
+            })}
+          >
+            {isMobile && (
+              <LogoSquare
                 className={`${className}__logo ${className}__logo--small`}
               />
-            </Link>
-          )}
+            )}
+            {!isMobile && (
+              <Logo
+                className={`${className}__logo ${className}__logo--large`}
+              />
+            )}
+          </Link>
 
           {/* navigation section */}
           <span className={`${className}__nav-items`}>
@@ -60,7 +78,8 @@ class Header extends Component {
 }
 
 const mapStateToProps = state => ({
-  deviceType: selectDeviceType(state)
+  deviceType: selectDeviceType(state),
+  headerIsLarge: selectHeaderIsLarge(state)
 });
 
 export default withRouter(connect(mapStateToProps)(Header));

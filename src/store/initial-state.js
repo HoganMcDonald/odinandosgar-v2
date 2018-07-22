@@ -1,5 +1,6 @@
 export default {
   ui: {
-    deviceType: 'desktop'
+    deviceType: 'desktop',
+    headerIsLarge: true
   }
 };
