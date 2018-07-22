@@ -1,7 +1,5 @@
 export default {
   ui: {
-    window: {
-      width: 0
-    }
+    deviceType: 'desktop'
   }
 };

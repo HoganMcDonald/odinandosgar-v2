@@ -1,1 +1,1 @@
-export const selectWindowWidth = state => state.ui.window.width;
+export const selectDeviceType = state => state.ui.deviceType;

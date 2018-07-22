@@ -1,0 +1,43 @@
+@import "../../scss/colors";
+
+body {
+  padding-top: 180px;
+}
+
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 180px;
+  padding: 24px 60px;
+  box-sizing: border-box;
+  z-index: 99999;
+
+  &--large {
+    padding: 48px 60px;
+  }
+
+  &:before {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    box-shadow: 0 0 10px rgba($brand-mediumgray, 0.4);
+  }
+}
+
+.site-header__container {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.site-header__logo {
+  height: 100%;
+  width: auto;
+}

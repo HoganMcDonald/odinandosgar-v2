@@ -1,7 +1,7 @@
-// import {  } from '../constants';
+import { CHANGE_DEVICE_TYPE } from '../constants';
 
 //action creator
-// export const updateWindowWidth = width => ({
-//   type: CHANGE_WINDOW_WIDTH,
-//   width
-// });
+export const updateDeviceType = deviceType => ({
+  type: CHANGE_DEVICE_TYPE,
+  deviceType
+});
