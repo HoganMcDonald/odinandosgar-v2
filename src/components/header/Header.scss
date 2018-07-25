@@ -14,6 +14,7 @@ body {
   box-sizing: border-box;
   z-index: 99999;
   transition: height 250ms;
+  background-color: white;
 
   &--large {
     padding: 48px 60px;

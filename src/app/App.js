@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 
 import { Media } from 'helpers';
 import Home from 'app/home/Home';
+import Shop from 'app/shop/Shop';
 import { updateDeviceType, updateHeaderIsLarge } from 'actions/ui';
 import { selectHeaderIsLarge } from 'selectors';
 import 'scss/typography.scss';
@@ -50,6 +51,7 @@ class App extends Component {
     return (
       <BrowserRouter>
         <Switch>
+          <Route path="/shop" component={Shop} />
           <Route path="/" component={Home} />
         </Switch>
       </BrowserRouter>
