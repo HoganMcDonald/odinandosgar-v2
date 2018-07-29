@@ -1,0 +1,22 @@
+import Client from 'shopify-buy';
+
+import { SET_PRODUCTS } from '../constants';
+
+const client = Client.buildClient({
+  storefrontAccessToken: 'eb20114e8e9a9e2844c73577df72d8ae',
+  domain: 'odin-and-osgar.myshopify.com'
+});
+
+export const setProducts = products => ({
+  type: SET_PRODUCTS,
+  products
+});
+
+// thunks
+export const getProducts = () => {
+  return dispatch =>
+    client.product.fetchAll().then(res => {
+      console.log(res);
+      dispatch(setProducts(res));
+    });
+};

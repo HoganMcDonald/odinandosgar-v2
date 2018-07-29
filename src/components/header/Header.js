@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { NavLink, Link, withRouter } from 'react-router-dom';
-import SideNav, { Nav, NavIcon, NavText } from 'react-sidenav';
+import SideNav, { Nav, NavText } from 'react-sidenav';
 import classNames from 'classnames';
 
 import { selectDeviceType, selectHeaderIsLarge } from 'selectors';
