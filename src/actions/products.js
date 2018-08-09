@@ -16,7 +16,6 @@ export const setProducts = products => ({
 export const getProducts = () => {
   return dispatch =>
     client.product.fetchAll().then(res => {
-      console.log(res);
       dispatch(setProducts(res));
     });
 };

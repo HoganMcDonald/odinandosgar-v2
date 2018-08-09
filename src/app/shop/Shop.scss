@@ -1,4 +1,5 @@
 @import "../../scss/colors";
+@import "../../scss/breakpoints";
 
 body {
   height: 200vh;
@@ -21,4 +22,10 @@ body {
   width: 100%;
   display: grid;
   grid-template-columns: 260px auto;
+  grid-column-gap: 20px;
+
+  @include media-query($medium-down) {
+    grid-template-columns: 1fr;
+    grid-row-gap: 48px;
+  }
 }
