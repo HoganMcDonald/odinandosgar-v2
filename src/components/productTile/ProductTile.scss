@@ -1,0 +1,36 @@
+@import "../../scss/colors";
+
+@keyframes pulse {
+  0%, 100% {
+    background-color: $brand-mediumgray;
+  }
+  50% {
+    background-color: $brand-lightgray;
+  }
+}
+
+.product-tile {
+  width: 100%;
+  padding-top: 146%;
+  position: relative;
+
+  &__content {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+}
+
+.product-image {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+
+  &--lazy {
+    padding-top: 150%;
+    animation: pulse 800ms infinite;
+    animation-timing-function: ease-in;
+  }
+}

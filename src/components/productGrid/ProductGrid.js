@@ -3,31 +3,46 @@ import { connect } from 'react-redux';
 
 import { getProducts } from 'actions/products';
 import { selectProducts } from 'selectors';
+import ProductTile from 'components/productTile/ProductTile';
 import './ProductGrid.scss';
 
-class ProductGrid extends Component {
-  constructor(props) {
-    super(props);
+let lazyProducts = [];
+for (let index = 0; index <= 18; index++) {
+  lazyProducts.push({ index });
+}
 
-    this.state = {
-      lazyProducts: new Array(18)
-    };
-  }
+console.log(lazyProducts);
+
+class ProductGrid extends Component {
+  state = {
+    products: lazyProducts
+  };
 
   componentDidMount() {
     if (this.props.getProducts && this.props.products.length === 0) {
       this.props.getProducts();
     }
   }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.products.length === 0 && this.props.products.length > 0) {
+      this.setState({
+        products: this.props.products
+      });
+    }
+  }
+
   render() {
+    console.log(this.state.products);
     return (
       <section className="product-grid">
-        {this.props.products &&
-          this.state.lazyProducts.map((lazyProduct, i) => (
-            <article key={i} className="product-tile--lazy" />
-          ))}
-        {this.props.products.map((product, i) => (
-          <article key={i} className="product-tile" />
+        {this.state.products.map((product, i) => (
+          <ProductTile
+            key={i}
+            index={i}
+            lazy={!product.id || false}
+            product={product}
+          />
         ))}
       </section>
     );
