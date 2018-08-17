@@ -7,15 +7,13 @@ import ProductTile from 'components/productTile/ProductTile';
 import './ProductGrid.scss';
 
 let lazyProducts = [];
-for (let index = 0; index <= 18; index++) {
+for (let index = 0; index < 18; index++) {
   lazyProducts.push({ index });
 }
 
-console.log(lazyProducts);
-
 class ProductGrid extends Component {
   state = {
-    products: lazyProducts
+    products: this.props.products.length > 0 ? this.props.products : lazyProducts
   };
 
   componentDidMount() {
@@ -33,7 +31,6 @@ class ProductGrid extends Component {
   }
 
   render() {
-    console.log(this.state.products);
     return (
       <section className="product-grid">
         {this.state.products.map((product, i) => (
