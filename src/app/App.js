@@ -1,13 +1,50 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { Route, Switch, BrowserRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { Media } from 'helpers';
 import Home from 'app/home/Home';
 import Shop from 'app/shop/Shop';
+import Header from 'components/header/Header.js';
+import Footer from 'components/footer/Footer.js';
 import { updateDeviceType, updateHeaderIsLarge } from 'actions/ui';
 import { selectHeaderIsLarge } from 'selectors';
 import 'scss/typography.scss';
+
+const footerRows = {
+  collections: [
+    {
+      text: 'Adult Shirts',
+      href: '/collections/adult'
+    },
+    {
+      text: 'Youth Shirts',
+      href: '/collections/youth'
+    },
+    {
+      text: 'Infant & Toddler',
+      href: '/collections/infant-and-toddler'
+    }
+  ],
+  about: [
+    {
+      text: 'Our Story',
+      href: '/our-story'
+    },
+    {
+      text: 'Privacy Policy',
+      href: '/privacy-policy'
+    },
+    {
+      text: 'Terms of Service',
+      href: '/terms-of-service'
+    },
+    {
+      text: 'Return Policy',
+      href: '/return-policy'
+    }
+  ]
+}
 
 class App extends Component {
   calculateDeviceType() {
@@ -50,10 +87,14 @@ class App extends Component {
   render() {
     return (
       <BrowserRouter>
-        <Switch>
-          <Route path="/shop" component={Shop} />
-          <Route path="/" component={Home} />
-        </Switch>
+        <Fragment>
+          <Header className="site-header" />
+          <Switch>
+            <Route path="/shop" component={Shop} />
+            <Route path="/" component={Home} />
+          </Switch>
+          <Footer className="site-footer" footerRows={footerRows} />
+        </Fragment>
       </BrowserRouter>
     );
   }

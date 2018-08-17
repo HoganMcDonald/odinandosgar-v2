@@ -1,14 +1,5 @@
 @import "../../scss/colors";
 
-@keyframes pulse {
-  0%, 100% {
-    background-color: $brand-mediumgray;
-  }
-  50% {
-    background-color: $brand-lightgray;
-  }
-}
-
 .product-tile {
   width: 100%;
   padding-top: 146%;
@@ -30,7 +21,7 @@
 
   &--lazy {
     padding-top: 150%;
-    animation: pulse 800ms infinite;
-    animation-timing-function: ease-in;
+    background-color: $brand-lightgray;
   }
 }
+

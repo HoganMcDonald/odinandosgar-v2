@@ -1,0 +1,54 @@
+@import "../../scss/colors";
+@import "../../scss/breakpoints";
+
+.site-footer {
+  width: 100vw;
+  background-color: $brand-blue;
+  display: flex;
+  margin-top: 60px;
+  flex-direction: column;
+  align-items: center;
+  color: #fff;
+}
+
+.site-footer__links {
+  margin: 48px auto;
+  display: grid;
+  grid-column-gap: 48px;
+
+  @include media-query($medium-down) {
+    flex-direction: column;
+  }
+}
+
+.link-list {
+  text-align: center;
+  padding: 0;
+}
+
+.link-list__link {
+  list-style: none;
+
+  a {
+    color: #fff;
+    text-decoration: none;
+
+    &:hover {
+      color: $brand-lightgray;
+    }
+  }
+}
+
+.link-list__title {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.site-footer__logo {
+  width: 60px;
+}
+
+.site-footer__copyright {
+  text-align: center;
+  margin-bottom: 48px;
+}

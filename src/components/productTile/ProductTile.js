@@ -1,11 +1,11 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import _ from 'lodash';
 
 import './ProductTile.scss';
 
 class ProductTile extends Component {
   render() {
-    const { product, index, lazy } = this.props;
+    const { product, lazy } = this.props;
 
     return (
       <article className="product-tile">
