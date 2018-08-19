@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { NavLink, Link, withRouter } from 'react-router-dom';
-import SideNav, { Nav, NavText } from 'react-sidenav';
 import classNames from 'classnames';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import { selectDeviceType, selectHeaderIsLarge } from 'selectors';
 import Logo from 'svgs/Logo';
@@ -10,6 +10,14 @@ import LogoSquare from 'svgs/LogoSquare';
 import './Header.scss';
 
 class Header extends Component {
+  state = {
+    navOpen: false
+  }
+
+  toggleNav = () => {
+    this.setState({navOpen: !this.state.navOpen});
+  }
+
   render() {
     const className = 'site-header';
 
@@ -17,13 +25,19 @@ class Header extends Component {
       this.props.deviceType === 'tablet' || this.props.deviceType === 'mobile';
 
     const style = {
-      height: this.props.headerIsLarge && !isMobile ? '180px' : '108px'
+      // height: this.props.headerIsLarge && !isMobile ? '180px' : '108px'
+      height: isMobile 
+        ? '80px' 
+        : (this.props.headerIsLarge 
+          ? '180px'
+          : '108px')
     };
 
     return (
       <header
         className={classNames(className, {
-          [`${className}--large`]: this.props.headerIsLarge || isMobile
+          [`${className}--large`]: this.props.headerIsLarge || isMobile,
+          [`${className}--mobile`]: isMobile
         })}
         style={style}
       >
@@ -33,13 +47,16 @@ class Header extends Component {
             to="/"
             className={classNames(`${className}__logo-link`, {
               [`${className}__logo-link--open`]:
-                this.props.headerIsLarge || isMobile
+                this.props.headerIsLarge || !isMobile
             })}
           >
             {isMobile && (
-              <LogoSquare
-                className={`${className}__logo ${className}__logo--small`}
-              />
+              <Fragment>
+                <LogoSquare
+                  className={`${className}__logo ${className}__logo--small`}
+                />
+                <FontAwesomeIcon icon="ellipsis-v" />
+              </Fragment>
             )}
             {!isMobile && (
               <Logo
@@ -74,20 +91,8 @@ class Header extends Component {
               </NavLink>
             </span>
           )}
-          {isMobile && (
-            <div style={{ background: '#2c3e50', color: '#FFF', width: 220 }}>
-              <SideNav
-                highlightColor="#E91E63"
-                highlightBgColor="#00bcd4"
-                defaultSelected="sales"
-              >
-                <Nav id="dashboard">
-                  <NavText> Dashboard </NavText>
-                </Nav>
-                <Nav id="sales">
-                  <NavText> Sales </NavText>
-                </Nav>
-              </SideNav>
+          {isMobile && this.state.navOpen && (
+            <div >
             </div>
           )}
         </div>

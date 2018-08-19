@@ -12,8 +12,6 @@ class Footer extends Component {
       footerRows
     } = this.props;
 
-    console.log(_.size(footerRows));
-
     const styles = {
       gridTemplateColumns: `repeat(${_.size(footerRows)}, 1fr)`
     }

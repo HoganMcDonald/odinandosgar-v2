@@ -1,7 +1,17 @@
 @import "../../scss/colors";
+@import "../../scss/breakpoints";
+
+$mobile-header-height: 60px;
+$desktop-header-open: 180px;
+$desktop-header-small: 108px;
 
 body {
-  padding-top: 180px;
+  @include media-query($large-up) {
+    padding-top: $desktop-header-open;
+  }
+  @include media-query($medium-down) {
+    paddint-top: $mobile-header-height;
+  }
 }
 
 .site-header {
@@ -9,7 +19,7 @@ body {
   top: 0;
   left: 0;
   right: 0;
-  height: 180px;
+  height: $desktop-header-open;
   padding: 24px 60px;
   box-sizing: border-box;
   z-index: 99999;
@@ -21,6 +31,14 @@ body {
 
     &:before {
       opacity: 0;
+    }
+  }
+
+  &--mobile {
+    padding: 10px;
+
+    &:before {
+      opacity: 1;
     }
   }
 
@@ -45,11 +63,16 @@ body {
 }
 
 .site-header__logo-link {
-  height: 60px;
-  transition: height 250ms;
-
-  &--open {
-    height: 84px;
+  @include media-query($large-up) {
+    height: 60px;
+    transition: height 250ms;
+  
+    &--open {
+      height: 84px;
+    }
+  }
+  @include media-query($medium-down) {
+    height: 90%;
   }
 }
 
