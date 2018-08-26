@@ -14,9 +14,14 @@ class Header extends Component {
   state = {
     navOpen: false
   }
-
+  
   toggleNav = () => {
     this.setState({navOpen: !this.state.navOpen});
+  }
+        
+  componentDidUpdate(prevProps) {
+    if (this.props.location.pathname !== prevProps.location.pathname)
+      this.setState({navOpen: false});
   }
 
   render() {

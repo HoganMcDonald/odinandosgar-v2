@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import classNames from 'classnames';
-// import { NavLink, withRouter } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 import delayUnmounting from 'hocs/delayUnmounting/delayUnmounting';
 import './MobileNav.scss';
@@ -24,14 +24,35 @@ class MobileNav extends Component {
   }
 
   render() {
-
     return (
       <div 
         className={classNames(this.className, {
           [`${this.className}--open`]: this.props.isMounted && this.state.isOpen
         })} 
         ref={ref => this.nav = ref}>
-
+        <div className={`${this.className}__nav-items`}>
+          <NavLink
+            to="/shop"
+            className={`${this.className}__nav-item`}
+            activeClassName={`${this.className}__nav-item--active`}
+          >
+            <h2>Shop</h2>
+          </NavLink>
+          <NavLink
+            to="/about"
+            className={`${this.className}__nav-item`}
+            activeClassName={`${this.className}__nav-item--active`}
+          >
+            <h2>About</h2>
+          </NavLink>
+          <NavLink
+            to="/Calendar"
+            className={`${this.className}__nav-item`}
+            activeClassName={`${this.className}__nav-item--active`}
+          >
+            <h2>Calendar</h2>
+          </NavLink>
+        </div>
       </div>
     );
   }
