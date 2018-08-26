@@ -85,6 +85,28 @@ body {
   }
 }
 
+.mobile-nav__icon {
+  height: 40px;
+  width: 40px;
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 1;
+  
+  .fa-ellipsis-v {
+    transition: transform 250ms, color 250ms;
+    height: 100%;
+    width: auto;
+  }
+  
+  &--open {
+    .fa-ellipsis-v {
+      transform: rotate(90deg);
+      color: white;
+    }
+  }
+}
+
 .site-header__nav-items {
   display: flex;
   height: 100%;

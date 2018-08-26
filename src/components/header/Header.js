@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { NavLink, Link, withRouter } from 'react-router-dom';
 import classNames from 'classnames';
@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { selectDeviceType, selectHeaderIsLarge } from 'selectors';
 import Logo from 'svgs/Logo';
 import LogoSquare from 'svgs/LogoSquare';
+import MobileNav from './mobileNav/MobileNav';
 import './Header.scss';
 
 class Header extends Component {
@@ -50,20 +51,24 @@ class Header extends Component {
                 this.props.headerIsLarge || !isMobile
             })}
           >
-            {isMobile && (
-              <Fragment>
-                <LogoSquare
-                  className={`${className}__logo ${className}__logo--small`}
-                />
-                <FontAwesomeIcon icon="ellipsis-v" />
-              </Fragment>
-            )}
             {!isMobile && (
               <Logo
                 className={`${className}__logo ${className}__logo--large`}
               />
             )}
+            {isMobile &&(
+              <LogoSquare
+                className={`${className}__logo ${className}__logo--small`}
+              />
+            )}
           </Link>
+          {isMobile && (
+            <span 
+              className={classNames('mobile-nav__icon', {'mobile-nav__icon--open': this.state.navOpen})} 
+              onClick={() => this.setState({navOpen: !this.state.navOpen})}>
+              <FontAwesomeIcon icon="ellipsis-v" />
+            </span>
+          )}
 
           {/* navigation section */}
           {!isMobile && (
@@ -91,10 +96,7 @@ class Header extends Component {
               </NavLink>
             </span>
           )}
-          {isMobile && this.state.navOpen && (
-            <div >
-            </div>
-          )}
+          <MobileNav delayTime={250} isMounted={isMobile && this.state.navOpen} />
         </div>
       </header>
     );
