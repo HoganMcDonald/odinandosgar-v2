@@ -8,7 +8,13 @@ class Media {
 
   static isTablet(window) {
     return window.matchMedia(
-      `(max-width: ${TABLET}px) and (min-width: ${MOBILE}px)`
+      `(max-width: ${TABLET}px) and (min-width: ${MOBILE + 1}px)`
+    ).matches;
+  }
+
+  static isDesktop(window) {
+    return window.matchMedia(
+      `(min-width: ${TABLET + 1}px)`
     ).matches;
   }
 }

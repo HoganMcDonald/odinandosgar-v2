@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { NavLink, Link, withRouter } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import classNames from 'classnames';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
@@ -8,6 +8,7 @@ import { selectDeviceType, selectHeaderIsLarge } from 'selectors';
 import Logo from 'svgs/Logo';
 import LogoSquare from 'svgs/LogoSquare';
 import MobileNav from './mobileNav/MobileNav';
+import NavItems from './navItems/NavItems';
 import './Header.scss';
 
 class Header extends Component {
@@ -77,29 +78,7 @@ class Header extends Component {
 
           {/* navigation section */}
           {!isMobile && (
-            <span className={`${className}__nav-items`}>
-              <NavLink
-                to="/shop"
-                className={`${className}__nav-item`}
-                activeClassName={`${className}__nav-item--active`}
-              >
-                <h3>Shop</h3>
-              </NavLink>
-              <NavLink
-                to="/about"
-                className={`${className}__nav-item`}
-                activeClassName={`${className}__nav-item--active`}
-              >
-                <h3>About</h3>
-              </NavLink>
-              <NavLink
-                to="/Calendar"
-                className={`${className}__nav-item`}
-                activeClassName={`${className}__nav-item--active`}
-              >
-                <h3>Calendar</h3>
-              </NavLink>
-            </span>
+            <NavItems className={className} />
           )}
           <MobileNav delayTime={250} isMounted={isMobile && this.state.navOpen} />
         </div>

@@ -24,12 +24,14 @@
 }
 
 .mobile-nav__nav-item {
-  margin-left: 40px;
+  display: block;
+  margin-bottom: 20px;
   color: white;
   text-decoration: none;
-  line-height: 1.25;
 
-  &--active > h2 {
-    color: $brand-blue;
+  &--active > h2,
+  &--active > .h2 {
+    font-weight: bold;
+    color: $brand-mediumgray;
   }
 }
