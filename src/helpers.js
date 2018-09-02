@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 const MOBILE = 744;
 const TABLET = 990;
 
@@ -19,4 +21,7 @@ class Media {
   }
 }
 
-export { Media };
+const getFirstAvailableVariant = (variants) =>
+  _.reduce(variants, (acc, variant) => (variant.available && _.isNull(acc) ? variant : acc), null);
+
+export { Media, getFirstAvailableVariant };

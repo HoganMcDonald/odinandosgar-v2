@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { getProducts } from 'actions/products';
 import { selectProducts } from 'selectors';
 import ProductTile from 'components/productTile/ProductTile';
+import { getFirstAvailableVariant } from 'helpers';
 import './ProductGrid.scss';
 
 let lazyProducts = [];
@@ -34,12 +35,18 @@ class ProductGrid extends Component {
     return (
       <section className="product-grid">
         {this.state.products.map((product, i) => (
-          <ProductTile
-            key={i}
-            index={i}
-            lazy={!product.id || false}
-            product={product}
-          />
+          !product.id
+          ? <ProductTile
+              key={i}
+              index={i}
+              lazy={true}
+              product={product} />
+          : getFirstAvailableVariant(product.variants) &&
+            <ProductTile
+              key={i}
+              index={i}
+              lazy={false}
+              product={product} />
         ))}
       </section>
     );
