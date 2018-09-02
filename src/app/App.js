@@ -1,6 +1,12 @@
 import React, { Component, Fragment } from 'react';
 import { Route, Switch, BrowserRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { library } from '@fortawesome/fontawesome-svg-core';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { 
+  faEllipsisV,
+  faShoppingCart
+} from '@fortawesome/free-solid-svg-icons';
 
 import { Media } from 'helpers';
 import Home from 'app/home/Home';
@@ -9,42 +15,11 @@ import Header from 'components/header/Header.js';
 import Footer from 'components/footer/Footer.js';
 import { updateDeviceType, updateHeaderIsLarge } from 'actions/ui';
 import { selectHeaderIsLarge } from 'selectors';
+import { footerRows } from '../data';
 import 'scss/typography.scss';
 
-const footerRows = {
-  collections: [
-    {
-      text: 'Adult Shirts',
-      href: '/collections/adult'
-    },
-    {
-      text: 'Youth Shirts',
-      href: '/collections/youth'
-    },
-    {
-      text: 'Infant & Toddler',
-      href: '/collections/infant-and-toddler'
-    }
-  ],
-  about: [
-    {
-      text: 'Our Story',
-      href: '/our-story'
-    },
-    {
-      text: 'Privacy Policy',
-      href: '/privacy-policy'
-    },
-    {
-      text: 'Terms of Service',
-      href: '/terms-of-service'
-    },
-    {
-      text: 'Return Policy',
-      href: '/return-policy'
-    }
-  ]
-}
+library.add(faEllipsisV);
+library.add(faShoppingCart);
 
 class App extends Component {
   calculateDeviceType() {
@@ -67,7 +42,7 @@ class App extends Component {
     window.addEventListener('scroll', e => {
       // if window is scrolled 10% down
       if (document.scrollingElement.scrollTop > window.innerHeight / 10) {
-        // ternerys prevent state from beign updated unecessarily
+        // prevent state from beign updated unecessarily
         return this.props.headerIsLarge
           ? this.props.updateHeaderIsLarge(false)
           : null;

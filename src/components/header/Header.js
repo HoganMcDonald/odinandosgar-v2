@@ -1,15 +1,30 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { NavLink, Link, withRouter } from 'react-router-dom';
-import SideNav, { Nav, NavText } from 'react-sidenav';
+import { Link, withRouter } from 'react-router-dom';
 import classNames from 'classnames';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import { selectDeviceType, selectHeaderIsLarge } from 'selectors';
 import Logo from 'svgs/Logo';
 import LogoSquare from 'svgs/LogoSquare';
+import MobileNav from './mobileNav/MobileNav';
+import NavItems from './navItems/NavItems';
 import './Header.scss';
 
 class Header extends Component {
+  state = {
+    navOpen: false
+  }
+  
+  toggleNav = () => {
+    this.setState({navOpen: !this.state.navOpen});
+  }
+        
+  componentDidUpdate(prevProps) {
+    if (this.props.location.pathname !== prevProps.location.pathname)
+      this.setState({navOpen: false});
+  }
+
   render() {
     const className = 'site-header';
 
@@ -17,13 +32,19 @@ class Header extends Component {
       this.props.deviceType === 'tablet' || this.props.deviceType === 'mobile';
 
     const style = {
-      height: this.props.headerIsLarge && !isMobile ? '180px' : '108px'
+      // height: this.props.headerIsLarge && !isMobile ? '180px' : '108px'
+      height: isMobile 
+        ? '80px' 
+        : (this.props.headerIsLarge 
+          ? '180px'
+          : '108px')
     };
 
     return (
       <header
         className={classNames(className, {
-          [`${className}--large`]: this.props.headerIsLarge || isMobile
+          [`${className}--large`]: this.props.headerIsLarge || isMobile,
+          [`${className}--mobile`]: isMobile
         })}
         style={style}
       >
@@ -33,63 +54,33 @@ class Header extends Component {
             to="/"
             className={classNames(`${className}__logo-link`, {
               [`${className}__logo-link--open`]:
-                this.props.headerIsLarge || isMobile
+                this.props.headerIsLarge || !isMobile
             })}
           >
-            {isMobile && (
-              <LogoSquare
-                className={`${className}__logo ${className}__logo--small`}
-              />
-            )}
             {!isMobile && (
               <Logo
                 className={`${className}__logo ${className}__logo--large`}
               />
             )}
+            {isMobile &&(
+              <LogoSquare
+                className={`${className}__logo ${className}__logo--small`}
+              />
+            )}
           </Link>
+          {isMobile && (
+            <span 
+              className={classNames('mobile-nav__icon', {'mobile-nav__icon--open': this.state.navOpen})} 
+              onClick={() => this.setState({navOpen: !this.state.navOpen})}>
+              <FontAwesomeIcon icon="ellipsis-v" />
+            </span>
+          )}
 
           {/* navigation section */}
           {!isMobile && (
-            <span className={`${className}__nav-items`}>
-              <NavLink
-                to="/shop"
-                className={`${className}__nav-item`}
-                activeClassName={`${className}__nav-item--active`}
-              >
-                <h3>Shop</h3>
-              </NavLink>
-              <NavLink
-                to="/about"
-                className={`${className}__nav-item`}
-                activeClassName={`${className}__nav-item--active`}
-              >
-                <h3>About</h3>
-              </NavLink>
-              <NavLink
-                to="/Calendar"
-                className={`${className}__nav-item`}
-                activeClassName={`${className}__nav-item--active`}
-              >
-                <h3>Calendar</h3>
-              </NavLink>
-            </span>
+            <NavItems className={className} />
           )}
-          {isMobile && (
-            <div style={{ background: '#2c3e50', color: '#FFF', width: 220 }}>
-              <SideNav
-                highlightColor="#E91E63"
-                highlightBgColor="#00bcd4"
-                defaultSelected="sales"
-              >
-                <Nav id="dashboard">
-                  <NavText> Dashboard </NavText>
-                </Nav>
-                <Nav id="sales">
-                  <NavText> Sales </NavText>
-                </Nav>
-              </SideNav>
-            </div>
-          )}
+          <MobileNav delayTime={250} isMounted={isMobile && this.state.navOpen} />
         </div>
       </header>
     );
