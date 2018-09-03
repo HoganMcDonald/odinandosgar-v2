@@ -2,7 +2,7 @@
 
 .product-tile {
   width: 100%;
-  padding-top: 146%;
+  padding-top: 184%;
   position: relative;
 
   &__content {
@@ -12,6 +12,36 @@
     bottom: 0;
     left: 0;
   }
+}
+
+.product-title {
+  text-align: center;
+  color: $brand-darkgray;
+
+  &.product-title--lazy {
+    width: 100%;
+    border-radius: 8px;
+    background-color: $brand-lightgray;
+    margin-top: 10px;
+  }
+}
+
+.product-price {
+  text-align: center;
+  color: $brand-purple;
+  font-weight: 500;
+
+  &.product-price--lazy {
+    width: 30%;
+    border-radius: 8px;
+    background-color: $brand-lightgray;
+    margin: auto;
+    margin-top: 10px;
+  }
+}
+
+.clamp-lines__button {
+  display: none;
 }
 
 .product-image {
