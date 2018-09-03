@@ -17,7 +17,7 @@ class ProductTile extends Component {
     const firstVariant = getFirstAvailableVariant(product.variants);
 
     return (
-      <Link to='/shop'>
+      <Link to={`/product/${product.handle}`}>
         <article 
           className={classNames('product-tile', {'product-tile--hover': this.state.hover})}
           onMouseEnter={() => this.setState({hover: true})}
