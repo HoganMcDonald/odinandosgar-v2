@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import SideBar from 'components/sideBar/SideBar';
 import ProductGrid from 'components/productGrid/ProductGrid';
+import { getIdFromCollectionHandle } from 'helpers';
 import './Shop.scss';
 
 class Shop extends Component {
@@ -27,7 +28,7 @@ class Shop extends Component {
         }
         <div className="shop-container">
           <SideBar />
-          <ProductGrid />
+          <ProductGrid collection={getIdFromCollectionHandle(match.params.collection)} />
         </div>
       </div>
     );
