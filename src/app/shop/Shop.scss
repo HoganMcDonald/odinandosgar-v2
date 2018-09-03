@@ -5,6 +5,10 @@
   width: 100%;
   padding: 24px 48px;
   box-sizing: border-box;
+
+  @include media-query($small) {
+    padding: 24px 20px;
+  }
 }
 
 .shop-heading {

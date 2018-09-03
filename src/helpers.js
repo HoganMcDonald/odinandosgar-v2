@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 const MOBILE = 744;
 const TABLET = 990;
 
@@ -11,12 +13,13 @@ class Media {
       `(max-width: ${TABLET}px) and (min-width: ${MOBILE + 1}px)`
     ).matches;
   }
-
-  static isDesktop(window) {
-    return window.matchMedia(
-      `(min-width: ${TABLET + 1}px)`
-    ).matches;
-  }
 }
 
-export { Media };
+const getFirstAvailableVariant = (variants) =>
+  _.reduce(variants, (acc, variant) => (variant.available && _.isNull(acc) ? variant : acc), null);
+
+const formatMoney = (cents) => 
+  _.divide(_.parseInt(_.replace(cents, /\D/g, '')), 100).toLocaleString('en-us', {style: 'currency', currency: 'USD'})
+
+
+export { Media, getFirstAvailableVariant, formatMoney };

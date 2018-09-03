@@ -1,32 +1,56 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import ClampLines from 'react-clamp-lines';
+import classNames from 'classnames';
 import _ from 'lodash';
 
+import { getFirstAvailableVariant, formatMoney } from 'helpers';
 import './ProductTile.scss';
 
 class ProductTile extends Component {
+  state = {
+    hover: false
+  }
+
   render() {
     const { product, lazy } = this.props;
+    const firstVariant = getFirstAvailableVariant(product.variants);
 
     return (
-      <article className="product-tile">
-        {
-          lazy && 
-          <div className="product-tile__content">
-            <div className="product-image product-image--lazy" />
-            <div className="product-title product-title--lazy" />
-            <div className="product-price product-price--lazy" />
-          </div>
-        }
+      <Link to='/shop'>
+        <article 
+          className={classNames('product-tile', {'product-tile--hover': this.state.hover})}
+          onMouseEnter={() => this.setState({hover: true})}
+          onMouseLeave={() => this.setState({hover: false})}>
+          {
+            lazy && 
+            <div className="product-tile__content">
+              <div className="product-image product-image--lazy" />
+              <div className="product-title product-title--lazy h4" />
+              <div className="product-price product-price--lazy h4" />
+            </div>
+          }
 
-        {
-          !lazy &&
-          <div className="product-tile__content">
-            <img src={_.get(product.images, '[0].src')} alt={_.get(product.images, '[0].alt')} className="product-image" />
-            <div className="product-title" />
-            <div className="product-price" />
-          </div>
-        }
-      </article>
+          {
+            !lazy &&
+            <div className="product-tile__content">
+              <img src={_.get(product.images, '[0].src')} alt={_.get(product.images, '[0].alt')} className="product-image" />
+              <div className="product-title" >
+                <h4>
+                  <ClampLines 
+                    text={product.title}
+                    lines='2'
+                    ellipsis='...'
+                    moreText={null} />
+                </h4>
+              </div>
+              <div className="product-price" >
+                <h4>{formatMoney(firstVariant.price)}</h4>
+              </div>
+            </div>
+          }
+        </article>
+      </Link>
     );
   }
 }

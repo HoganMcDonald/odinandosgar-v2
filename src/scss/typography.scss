@@ -63,7 +63,7 @@ body {
 
 // defines header rules
 @for $heading from 1 to 5 {
-  h#{$heading}, .h#{$heading} {
+  h#{$heading}, .h#{$heading}{
     font-size: #{pow($desktop_scale, 5 - $heading)}rem;
 
     @include fluid-type($min_width, $max_width, pow($mobile_scale, 5 - $heading) * $min_font, pow($desktop_scale, 5 - $heading) * $max_font);
@@ -71,6 +71,10 @@ body {
     font-family: $komet, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
     font-weight: 400;
     margin: 0;
+  }
+
+  .h#{$heading} {
+    height: #{pow($desktop_scale, 5 - $heading)}rem;
   }
 }
 
