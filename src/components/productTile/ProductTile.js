@@ -1,19 +1,27 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import ClampLines from 'react-clamp-lines';
+import classNames from 'classnames';
 import _ from 'lodash';
 
 import { getFirstAvailableVariant, formatMoney } from 'helpers';
 import './ProductTile.scss';
 
 class ProductTile extends Component {
+  state = {
+    hover: false
+  }
+
   render() {
     const { product, lazy } = this.props;
     const firstVariant = getFirstAvailableVariant(product.variants);
 
     return (
       <Link to='/shop'>
-        <article className="product-tile">
+        <article 
+          className={classNames('product-tile', {'product-tile--hover': this.state.hover})}
+          onMouseEnter={() => this.setState({hover: true})}
+          onMouseLeave={() => this.setState({hover: false})}>
           {
             lazy && 
             <div className="product-tile__content">
