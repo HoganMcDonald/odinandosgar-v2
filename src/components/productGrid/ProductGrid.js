@@ -41,7 +41,8 @@ class ProductGrid extends Component {
               index={i}
               lazy={true}
               product={product} />
-          : getFirstAvailableVariant(product.variants) &&
+          : getFirstAvailableVariant(product.variants) && 
+            product.images.length > 0 &&
             <ProductTile
               key={i}
               index={i}

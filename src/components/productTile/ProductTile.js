@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import ClampLines from 'react-clamp-lines';
 import _ from 'lodash';
 
-import { getFirstAvailableVariant } from 'helpers';
+import { getFirstAvailableVariant, formatMoney } from 'helpers';
 import './ProductTile.scss';
 
 class ProductTile extends Component {
@@ -12,7 +12,7 @@ class ProductTile extends Component {
     const firstVariant = getFirstAvailableVariant(product.variants);
 
     return (
-      // <Link to='/shop'>
+      <Link to='/shop'>
         <article className="product-tile">
           {
             lazy && 
@@ -37,12 +37,12 @@ class ProductTile extends Component {
                 </h4>
               </div>
               <div className="product-price" >
-                <h4>{firstVariant.price}</h4>
+                <h4>{formatMoney(firstVariant.price)}</h4>
               </div>
             </div>
           }
         </article>
-      // </Link>
+      </Link>
     );
   }
 }

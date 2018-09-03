@@ -2,16 +2,15 @@ import React, { PureComponent } from 'react';
 import { NavLink, withRouter } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-import { Media } from 'helpers';
 
 class NavItems extends PureComponent {
   render() {
-    const {className} = this.props;
+    const {className, isMobile} = this.props;
 
     return (
       <div className={`${className}__nav-items`}>
         {
-          Media.isMobile(window) &&
+          isMobile &&
           <NavLink
             to="/cart"
             className={`${className}__nav-item`}
@@ -44,7 +43,7 @@ class NavItems extends PureComponent {
         </NavLink>
         
         {
-          Media.isDesktop(window) &&
+          !isMobile &&
           <NavLink
             to="/cart"
             className={`${className}__nav-item`}

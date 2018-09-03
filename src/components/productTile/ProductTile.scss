@@ -1,4 +1,5 @@
 @import "../../scss/colors";
+@import "../../scss/breakpoints";
 
 .product-tile {
   width: 100%;
@@ -11,6 +12,10 @@
     right: 0;
     bottom: 0;
     left: 0;
+  }
+
+  @include media-query($small) {
+    padding-top: 194%;
   }
 }
 

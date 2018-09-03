@@ -78,8 +78,10 @@ class Header extends Component {
 
           {/* navigation section */}
           {!isMobile && (
-            <NavItems className={className} />
+            <NavItems className={className} isMobile={isMobile} />
           )}
+
+          {/* mobile navigation menu */}
           <MobileNav delayTime={250} isMounted={isMobile && this.state.navOpen} />
         </div>
       </header>

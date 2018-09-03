@@ -30,7 +30,7 @@ class MobileNav extends Component {
           [`${this.className}--open`]: this.props.isMounted && this.state.isOpen
         })} 
         ref={ref => this.nav = ref}>
-          <NavItems className={this.className} />
+          <NavItems className={this.className} isMobile={true} />
       </div>
     );
   }
