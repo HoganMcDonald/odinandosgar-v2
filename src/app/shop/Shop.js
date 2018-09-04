@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import _ from 'lodash';
 
 import SideBar from 'components/sideBar/SideBar';
 import ProductGrid from 'components/productGrid/ProductGrid';
@@ -24,7 +25,7 @@ class Shop extends Component {
       <div className="page">
         {
           match.params.collection &&
-          <h1 className="shop-heading">{match.params.collection}</h1>
+          <h1 className="shop-heading">{_.replace(match.params.collection, /-/g, ' ')}</h1>
         }
         <div className="shop-container">
           <SideBar />

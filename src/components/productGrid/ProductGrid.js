@@ -13,15 +13,6 @@ for (let index = 0; index < 18; index++) {
 }
 
 class ProductGrid extends Component {
-  static getDerivedStateFromProps(props, state) {
-    if (props.products !== state.products) {
-      return {
-        products: props.collection === state.collection ? props.products : lazyProducts
-      }
-    }
-    return null;
-  }
-
   state = {
     products: this.props.products.length > 0 ? this.props.products : lazyProducts,
     collection: undefined
@@ -32,13 +23,16 @@ class ProductGrid extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.products.length === 0 && this.props.products.length > 0) {
+    if (prevProps.products !== this.props.products) {
       this.setState({
         products: this.props.products
       });
     }
     if (this.props.collection !== prevProps.collection) {
       this.props.getProducts(this.props.collection);
+      this.setState({
+        products: lazyProducts
+      });
     }
   }
 

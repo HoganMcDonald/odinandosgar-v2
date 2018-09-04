@@ -14,12 +14,6 @@
     left: 0;
   }
 
-  &--hover {
-    .product-image {
-      box-shadow: 0 0 0 2px rgba($brand-green, 0.9);
-    }
-  }
-
   @include media-query($small) {
     padding-top: 194%;
   }

@@ -8,20 +8,13 @@ import { getFirstAvailableVariant, formatMoney } from 'helpers';
 import './ProductTile.scss';
 
 class ProductTile extends Component {
-  state = {
-    hover: false
-  }
-
   render() {
     const { product, lazy } = this.props;
     const firstVariant = getFirstAvailableVariant(product.variants);
 
     return (
       <Link to={`/product/${product.handle}`}>
-        <article 
-          className={classNames('product-tile', {'product-tile--hover': this.state.hover})}
-          onMouseEnter={() => this.setState({hover: true})}
-          onMouseLeave={() => this.setState({hover: false})}>
+        <article className={classNames('product-tile')}>
           {
             lazy && 
             <div className="product-tile__content">
