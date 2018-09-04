@@ -14,19 +14,24 @@ for (let index = 0; index < 18; index++) {
 
 class ProductGrid extends Component {
   state = {
-    products: this.props.products.length > 0 ? this.props.products : lazyProducts
+    products: this.props.products.length > 0 ? this.props.products : lazyProducts,
+    collection: undefined
   };
 
   componentDidMount() {
-    if (this.props.getProducts && this.props.products.length === 0) {
-      this.props.getProducts();
-    }
+    this.props.getProducts(this.props.collection);
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.products.length === 0 && this.props.products.length > 0) {
+    if (prevProps.products !== this.props.products) {
       this.setState({
         products: this.props.products
+      });
+    }
+    if (this.props.collection !== prevProps.collection) {
+      this.props.getProducts(this.props.collection);
+      this.setState({
+        products: lazyProducts
       });
     }
   }
@@ -34,21 +39,23 @@ class ProductGrid extends Component {
   render() {
     return (
       <section className="product-grid">
-        {this.state.products.map((product, i) => (
-          !product.id
-          ? <ProductTile
-              key={i}
-              index={i}
-              lazy={true}
-              product={product} />
-          : getFirstAvailableVariant(product.variants) && 
-            product.images.length > 0 &&
-            <ProductTile
-              key={i}
-              index={i}
-              lazy={false}
-              product={product} />
-        ))}
+        {this.state.products
+          .map((product, i) => (
+            !product.id
+            ? <ProductTile
+                key={i}
+                index={i}
+                lazy={true}
+                product={product} />
+            : getFirstAvailableVariant(product.variants) && 
+              product.images.length > 0 &&
+              <ProductTile
+                key={i}
+                index={i}
+                lazy={false}
+                product={product} />
+          ))
+        }
       </section>
     );
   }
@@ -59,8 +66,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  getProducts: () => {
-    dispatch(getProducts());
+  getProducts: (collection) => {
+    dispatch(getProducts(collection));
   }
 });
 

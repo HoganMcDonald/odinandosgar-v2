@@ -13,9 +13,13 @@ export const setProducts = products => ({
 });
 
 // thunks
-export const getProducts = () => {
+export const getProducts = (collection) => {
   return dispatch =>
-    client.product.fetchAll().then(res => {
-      dispatch(setProducts(res));
-    });
+    collection
+    ? client.collection.fetchWithProducts(collection).then(res => {
+        dispatch(setProducts(res.products));
+      })
+    : client.product.fetchAll().then(res => {
+        dispatch(setProducts(res));
+      });
 };

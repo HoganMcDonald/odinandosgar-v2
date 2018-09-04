@@ -1,17 +1,35 @@
 import React, { Component } from 'react';
+import _ from 'lodash';
 
 import SideBar from 'components/sideBar/SideBar';
 import ProductGrid from 'components/productGrid/ProductGrid';
+import { getIdFromCollectionHandle } from 'helpers';
 import './Shop.scss';
 
 class Shop extends Component {
+  componentDidUpdate(prevProps) {
+    if (this.props.match.params.collection !== prevProps.match.params.collection)
+      window.scroll({
+        top: 0, 
+        left: 0, 
+        behavior: 'smooth' 
+      });
+  }
+
   render() {
+    const {
+      match
+    } = this.props;
+
     return (
       <div className="page">
-        <h1 className="shop-heading">shop</h1>
+        {
+          match.params.collection &&
+          <h1 className="shop-heading">{_.replace(match.params.collection, /-/g, ' ')}</h1>
+        }
         <div className="shop-container">
           <SideBar />
-          <ProductGrid />
+          <ProductGrid collection={getIdFromCollectionHandle(match.params.collection)} />
         </div>
       </div>
     );

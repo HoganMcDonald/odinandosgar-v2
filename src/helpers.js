@@ -21,5 +21,17 @@ const getFirstAvailableVariant = (variants) =>
 const formatMoney = (cents) => 
   _.divide(_.parseInt(_.replace(cents, /\D/g, '')), 100).toLocaleString('en-us', {style: 'currency', currency: 'USD'})
 
+const getIdFromCollectionHandle = (id) => {
+  switch(id) {
+    case 'adult':
+      return 'Z2lkOi8vc2hvcGlmeS9Db2xsZWN0aW9uLzYwNTAzMjYxMjI2';
+    case 'youth':
+      return 'Z2lkOi8vc2hvcGlmeS9Db2xsZWN0aW9uLzYwNTAzMjkzOTk0';
+    case 'infant-and-toddler':
+      return 'Z2lkOi8vc2hvcGlmeS9Db2xsZWN0aW9uLzYwNTAzMzU5NTMw';
+    default:
+      return null;
+  }
+}
 
-export { Media, getFirstAvailableVariant, formatMoney };
+export { Media, getFirstAvailableVariant, formatMoney, getIdFromCollectionHandle };

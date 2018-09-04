@@ -2,15 +2,15 @@ export const footerRows = {
   collections: [
     {
       text: 'Adult Shirts',
-      href: '/collections/adult'
+      href: '/shop/adult'
     },
     {
       text: 'Youth Shirts',
-      href: '/collections/youth'
+      href: '/shop/youth'
     },
     {
       text: 'Infant & Toddler',
-      href: '/collections/infant-and-toddler'
+      href: '/shop/infant-and-toddler'
     }
   ],
   about: [

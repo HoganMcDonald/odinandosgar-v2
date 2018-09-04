@@ -15,7 +15,7 @@ import Header from 'components/header/Header.js';
 import Footer from 'components/footer/Footer.js';
 import { updateDeviceType, updateHeaderIsLarge } from 'actions/ui';
 import { selectHeaderIsLarge } from 'selectors';
-import { footerRows } from '../data';
+import { footerRows } from 'data';
 import 'scss/typography.scss';
 
 library.add(faEllipsisV);
@@ -65,6 +65,7 @@ class App extends Component {
         <Fragment>
           <Header className="site-header" />
           <Switch>
+            <Route path="/shop/:collection" component={Shop} />
             <Route path="/shop" component={Shop} />
             <Route path="/" component={Home} />
           </Switch>
