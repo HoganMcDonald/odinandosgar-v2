@@ -2,7 +2,6 @@ import React, { PureComponent } from 'react';
 import { NavLink, withRouter } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-
 class NavItems extends PureComponent {
   render() {
     const {className, isMobile} = this.props;

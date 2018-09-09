@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
+import { connect } from 'react-redux';
 
 import SideBar from 'components/sideBar/SideBar';
 import ProductGrid from 'components/productGrid/ProductGrid';
 import { getIdFromCollectionHandle } from 'helpers';
+import { selectSearchTerms } from 'selectors';
+import { updateSearchTerms } from 'actions/search';
 import './Shop.scss';
 
 class Shop extends Component {
@@ -18,7 +21,9 @@ class Shop extends Component {
 
   render() {
     const {
-      match
+      match,
+      searchTerms,
+      updateSearchTerms
     } = this.props;
 
     return (
@@ -28,7 +33,10 @@ class Shop extends Component {
           <h1 className="shop-heading">{_.replace(match.params.collection, /-/g, ' ')}</h1>
         }
         <div className="shop-container">
-          <SideBar />
+          <SideBar
+            searchTerms={searchTerms}
+            updateSearchTerms={updateSearchTerms}
+             />
           <ProductGrid collection={getIdFromCollectionHandle(match.params.collection)} />
         </div>
       </div>
@@ -36,4 +44,17 @@ class Shop extends Component {
   }
 }
 
-export default Shop;
+const mapStateToProps = state => ({
+  searchTerms: selectSearchTerms(state)
+});
+
+const mapDispatchToProps = dispatch => ({
+  updateSearchTerms: searchTerms => {
+    dispatch(updateSearchTerms(searchTerms));
+  }
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Shop);;
