@@ -11,7 +11,8 @@ import './Shop.scss';
 
 class Shop extends Component {
   componentDidUpdate(prevProps) {
-    if (this.props.match.params.collection !== prevProps.match.params.collection)
+    if (this.props.match.params.collection !== prevProps.match.params.collection ||
+      this.props.searchTerms !== prevProps.searchTerms)
       window.scroll({
         top: 0, 
         left: 0, 
