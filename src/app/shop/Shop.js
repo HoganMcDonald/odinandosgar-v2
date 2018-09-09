@@ -6,7 +6,7 @@ import queryString from 'query-string';
 import SideBar from 'components/sideBar/SideBar';
 import ProductGrid from 'components/productGrid/ProductGrid';
 import { getIdFromCollectionHandle } from 'helpers';
-import { selectSearchTerms } from 'selectors';
+import { selectSearchTerms, selectProducts } from 'selectors';
 import { updateSearchTerms } from 'actions/search';
 import './Shop.scss';
 
@@ -42,7 +42,8 @@ class Shop extends Component {
     const {
       match,
       searchTerms,
-      updateSearchTerms
+      updateSearchTerms,
+      products
     } = this.props;
 
     return (
@@ -55,7 +56,7 @@ class Shop extends Component {
           <SideBar
             searchTerms={searchTerms}
             updateSearchTerms={updateSearchTerms}
-             />
+            products={products} />
           <ProductGrid 
             collection={getIdFromCollectionHandle(match.params.collection)}
             searchTerms={searchTerms} />
@@ -66,7 +67,8 @@ class Shop extends Component {
 }
 
 const mapStateToProps = state => ({
-  searchTerms: selectSearchTerms(state)
+  searchTerms: selectSearchTerms(state),
+  products: selectProducts(state)
 });
 
 const mapDispatchToProps = dispatch => ({
