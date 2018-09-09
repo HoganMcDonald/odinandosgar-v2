@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
 import { connect } from 'react-redux';
+import queryString from 'query-string';
 
 import SideBar from 'components/sideBar/SideBar';
 import ProductGrid from 'components/productGrid/ProductGrid';
@@ -10,6 +11,19 @@ import { updateSearchTerms } from 'actions/search';
 import './Shop.scss';
 
 class Shop extends Component {
+  setUrl = (searchTerm) => {
+    const search = queryString.stringify({search: searchTerm});
+    this.props.history.replace({ search });
+  }
+
+  getUrl = () => {
+    this.props.updateSearchTerms(_.defaultTo(_.get(queryString.parse(this.props.history.location.search), 'search'), ''));
+  }
+
+  componentDidMount() {
+    this.getUrl();
+  }
+
   componentDidUpdate(prevProps) {
     if (this.props.match.params.collection !== prevProps.match.params.collection ||
       this.props.searchTerms !== prevProps.searchTerms)
@@ -18,6 +32,10 @@ class Shop extends Component {
         left: 0, 
         behavior: 'smooth' 
       });
+
+    if (this.props.searchTerms !== prevProps.searchTerms) {
+      this.setUrl(this.props.searchTerms);
+    }
   }
 
   render() {
