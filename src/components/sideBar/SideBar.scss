@@ -49,3 +49,47 @@
 .color-filters__title {
   margin-bottom: 0.5em;
 }
+
+.color-options {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-column-gap: 20px;
+}
+
+.color-option {
+  width: 100%;
+  padding-top: 100%;
+  border: solid 2px $brand-darkgray;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: border 150ms ease-in;
+  
+  &:hover {
+    border-color: $brand-mediumgray;
+  }
+  
+  &.active {
+    border-color: $brand-green;
+
+    &:hover {
+      border-color: red;
+    }
+  }
+
+  &--grey {
+    background-color: $brand-mediumgray;
+  }
+
+  &--purple {
+    background-color: $brand-purple;
+  }
+
+  &--black {
+    background-color: black;
+  }
+
+  &--blue {
+    background-color: $brand-blue;
+  }
+}

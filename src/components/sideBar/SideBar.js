@@ -7,15 +7,15 @@ import { collections } from 'data';
 import './SideBar.scss';
 
 class ColorOptions extends PureComponent {
-  getColorsAvailable = (products) => {
-    return new Set(_.reduce(products, (acc, product) => {
+  colorsAvailable = (products) => {
+    return Array.from(new Set(_.reduce(products, (acc, product) => {
       const color = _.find(product.options, {name: 'Color'});
       if (!_.isEmpty(color)) {
         const colors = new _.map(color.values, (colorObj) => colorObj.value);
         return [...acc, ...colors]
       }
       return acc;
-    }, []));
+    }, [])));
   }
 
   render() {
@@ -25,6 +25,22 @@ class ColorOptions extends PureComponent {
 
     return (
       <div className='color-options'>
+        {
+          _.map(this.colorsAvailable(products), (color, i) => {
+            switch(color) {
+              case 'Grey':
+                return (<div key={i} className={`color-option color-option--grey`}/>);
+              case 'Purple':
+                return (<div key={i} className={`color-option color-option--purple`}/>);
+              case 'Black':
+                return (<div key={i} className={`color-option color-option--black`}/>);
+              case 'Blue':
+                return (<div key={i} className={`color-option color-option--blue`}/>);
+              default:
+              break;
+            }
+          })
+        }
       </div>
     );
   }
