@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import Fuse from 'fuse.js';
+import _ from 'lodash';
 
 import { getProducts } from 'actions/products';
-import { selectProducts } from 'selectors';
+import { selectProducts, selectSearchTerms } from 'selectors';
 import ProductTile from 'components/productTile/ProductTile';
 import { getFirstAvailableVariant } from 'helpers';
 import './ProductGrid.scss';
@@ -12,9 +14,25 @@ for (let index = 0; index < 18; index++) {
   lazyProducts.push({ index });
 }
 
+const fuseOptions = {
+  shouldSort: true,
+  includeScore: true,
+  threshold: 0.6,
+  location: 0,
+  distance: 100,
+  maxPatternLength: 20,
+  minMatchCharLength: 3,
+  keys: [
+    'description',
+    'productType',
+    'tags.value',
+    'title'
+  ]
+};
+
 class ProductGrid extends Component {
   state = {
-    products: this.props.products.length > 0 ? this.props.products : lazyProducts,
+    products: new Fuse(this.props.products.length > 0 ? this.props.products : lazyProducts, fuseOptions),
     collection: undefined
   };
 
@@ -25,21 +43,25 @@ class ProductGrid extends Component {
   componentDidUpdate(prevProps) {
     if (prevProps.products !== this.props.products) {
       this.setState({
-        products: this.props.products
+        products: new Fuse(this.props.products, fuseOptions)
       });
     }
     if (this.props.collection !== prevProps.collection) {
       this.props.getProducts(this.props.collection);
       this.setState({
-        products: lazyProducts
+        products: new Fuse(lazyProducts, fuseOptions)
       });
     }
   }
 
   render() {
+    const filterdProducts = _.isEmpty(this.props.searchTerms)
+      ? this.state.products.list
+      : this.state.products.search(this.props.searchTerms).map(product => product.item)
+
     return (
       <section className="product-grid">
-        {this.state.products
+        {filterdProducts
           .map((product, i) => (
             !product.id
             ? <ProductTile
@@ -62,7 +84,8 @@ class ProductGrid extends Component {
 }
 
 const mapStateToProps = state => ({
-  products: selectProducts(state)
+  products: selectProducts(state),
+  searchTerms: selectSearchTerms(state)
 });
 
 const mapDispatchToProps = dispatch => ({

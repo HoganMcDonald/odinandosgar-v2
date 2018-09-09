@@ -37,7 +37,9 @@ class Shop extends Component {
             searchTerms={searchTerms}
             updateSearchTerms={updateSearchTerms}
              />
-          <ProductGrid collection={getIdFromCollectionHandle(match.params.collection)} />
+          <ProductGrid 
+            collection={getIdFromCollectionHandle(match.params.collection)}
+            searchTerms={searchTerms} />
         </div>
       </div>
     );
