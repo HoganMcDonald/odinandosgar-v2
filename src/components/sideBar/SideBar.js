@@ -1,6 +1,7 @@
 import React, { Component, PureComponent } from 'react';
 import { NavLink } from 'react-router-dom'
 import _ from 'lodash';
+import classNames from 'classnames';
 
 import SearchBar from './searchBar/SearchBar';
 import { collections } from 'data';
@@ -18,28 +19,35 @@ class ColorOptions extends PureComponent {
     }, [])));
   }
 
+  toggleColor(color) {
+    const {
+      colors,
+      addColor,
+      removeColor
+    } = this.props;
+
+    if (colors.includes(color)) {
+      removeColor(color);
+    } else {
+      addColor(color);
+    }
+  }
+
   render() {
     const {
-      products
+      products,
+      colors
     } = this.props;
 
     return (
       <div className='color-options'>
         {
-          _.map(this.colorsAvailable(products), (color, i) => {
-            switch(color) {
-              case 'Grey':
-                return (<div key={i} className={`color-option color-option--grey`}/>);
-              case 'Purple':
-                return (<div key={i} className={`color-option color-option--purple`}/>);
-              case 'Black':
-                return (<div key={i} className={`color-option color-option--black`}/>);
-              case 'Blue':
-                return (<div key={i} className={`color-option color-option--blue`}/>);
-              default:
-              break;
-            }
-          })
+          _.map(this.colorsAvailable(products), (color, i) => 
+            <div 
+              key={i} 
+              className={classNames('color-option', `color-option--${color.toLowerCase()}`, {'color-option--active': colors.includes(color)})}
+              onClick={() => this.toggleColor(color)} />
+          )
         }
       </div>
     );
@@ -52,7 +60,10 @@ class SideBar extends Component {
   render() {
     const {
       searchTerms,
-      products
+      products,
+      colors,
+      addColor,
+      removeColor
     } = this.props;
 
     return (
@@ -74,7 +85,11 @@ class SideBar extends Component {
           </nav>
           <nav className="color-filters">
             <h4 className="color-filters__title">Colors</h4>
-            <ColorOptions products={products} />
+            <ColorOptions 
+              products={products}
+              colors={colors}
+              addColor={addColor}
+              removeColor={removeColor} />
           </nav>
         </div>
       </aside>

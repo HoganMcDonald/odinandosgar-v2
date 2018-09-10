@@ -4,5 +4,6 @@ export default {
     headerIsLarge: true
   },
   products: [],
-  search: ''
+  search: '',
+  color: []
 };

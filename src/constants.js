@@ -7,3 +7,7 @@ export const SET_PRODUCTS = 'SET_PRODUCTS';
 
 // search
 export const SET_SEARCH_TERMS = 'SET_SEARCH_TERMS';
+
+// colors
+export const ADD_COLOR = 'ADD_COLOR';
+export const REMOVE_COLOR = 'REMOVE_COLOR';
