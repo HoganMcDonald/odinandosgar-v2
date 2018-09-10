@@ -54,14 +54,34 @@ class ProductGrid extends Component {
     }
   }
 
+  filterProducts(products, colors, searchTerms) {
+    let filteredProducts = products;
+    if (!_.isEmpty(searchTerms)) {
+      filteredProducts = products.search(searchTerms).map(product => product.item);
+    } else {
+      filteredProducts = products.list;
+    }
+    if (!_.isEmpty(colors)) {
+      filteredProducts = _.filter(filteredProducts, (product) => {
+        const colorOptions = _.find(product.options, {name: 'Color'});
+        if (!_.isEmpty(colorOptions)) {
+          return colorOptions.values.some((option) => colors.includes(option.value));
+        }
+        return false;
+      })
+    }
+    return filteredProducts;
+  }
+
   render() {
-    const filterdProducts = _.isEmpty(this.props.searchTerms)
-      ? this.state.products.list
-      : this.state.products.search(this.props.searchTerms).map(product => product.item)
+    const {
+      searchTerms,
+      colors
+    } = this.props;
 
     return (
       <section className="product-grid">
-        {filterdProducts
+        {this.filterProducts(this.state.products, colors, searchTerms)
           .map((product, i) => (
             !product.id
             ? <ProductTile
