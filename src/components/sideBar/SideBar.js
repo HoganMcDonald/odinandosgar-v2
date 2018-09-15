@@ -78,7 +78,7 @@ class SideBar extends Component {
             {
               _.map(collections, (collection, i) => (
                 <p key={i} className="category-filters__filter">
-                  <NavLink to={collection.href}>{collection.text}</NavLink>
+                  <NavLink to={collection.href} exact>{collection.text}</NavLink>
                 </p>
               ))
             }

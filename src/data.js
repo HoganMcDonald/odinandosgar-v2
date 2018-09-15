@@ -10,6 +10,10 @@ export const collections = [
   {
     text: 'Infant & Toddler',
     href: '/shop/infant-and-toddler'
+  },
+  {
+    text: 'All Products',
+    href: '/shop/'
   }
 ];
 

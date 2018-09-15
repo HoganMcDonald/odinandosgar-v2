@@ -27,7 +27,8 @@ class Shop extends Component {
 
   componentDidUpdate(prevProps) {
     if (this.props.match.params.collection !== prevProps.match.params.collection ||
-      this.props.searchTerms !== prevProps.searchTerms)
+      this.props.searchTerms !== prevProps.searchTerms || 
+      this.props.colors !== prevProps.colors)
       window.scroll({
         top: 0, 
         left: 0, 

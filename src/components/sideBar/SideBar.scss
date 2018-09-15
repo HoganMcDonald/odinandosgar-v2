@@ -1,10 +1,18 @@
 @import "../../scss/colors";
+@import "../../scss/breakpoints";
 
 .side-bar {
   width: 100%;
-  border-right: 2px solid $brand-lightgray;
   padding: 15px;
   box-sizing: border-box;
+
+  @include media-query($large-up) {
+    border-right: 2px solid $brand-lightgray;
+  }
+  
+  @include media-query($medium-down) {
+    border-bottom: 2px solid $brand-lightgray;
+  }
 }
 
 .filter-container {
@@ -18,6 +26,11 @@
 
 .category-filters {
   margin-top: 24px;
+
+  @include media-query($medium-down) {
+    width: 50%;
+    display: inline-block;
+  }
 }
 
 .category-filters__title {
@@ -44,6 +57,11 @@
 
 .color-filters {
   margin-top: 24px;
+
+  @include media-query($medium-down) {
+    width: 50%;
+    display: inline-block;
+  }
 }
 
 .color-filters__title {
@@ -52,6 +70,7 @@
 
 .color-options {
   width: 100%;
+  max-width: 228px;
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   grid-column-gap: 20px;
