@@ -2,10 +2,10 @@ import React, { Component, Fragment } from 'react';
 import { Route, Switch, BrowserRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { library } from '@fortawesome/fontawesome-svg-core';
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { 
   faEllipsisV,
-  faShoppingCart
+  faShoppingCart,
+  faSearch
 } from '@fortawesome/free-solid-svg-icons';
 
 import { Media } from 'helpers';
@@ -20,6 +20,7 @@ import 'scss/typography.scss';
 
 library.add(faEllipsisV);
 library.add(faShoppingCart);
+library.add(faSearch);
 
 class App extends Component {
   calculateDeviceType() {

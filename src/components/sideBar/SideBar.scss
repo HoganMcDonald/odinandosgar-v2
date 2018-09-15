@@ -1,13 +1,114 @@
 @import "../../scss/colors";
+@import "../../scss/breakpoints";
 
 .side-bar {
   width: 100%;
-  height: 100%;
-  border-right: 2px solid $brand-mediumgray;
+  padding: 15px;
+  box-sizing: border-box;
+
+  @include media-query($large-up) {
+    border-right: 2px solid $brand-lightgray;
+  }
+  
+  @include media-query($medium-down) {
+    border-bottom: 2px solid $brand-lightgray;
+  }
 }
 
-.shop-filters {
-  background-color: lavender;
+.filter-container {
   position: sticky;
-  top: 150px;
+  top: 180px;
+}
+
+.search-bar {
+  margin-bottom: 10px;
+}
+
+.category-filters {
+  margin-top: 24px;
+
+  @include media-query($medium-down) {
+    width: 50%;
+    display: inline-block;
+  }
+}
+
+.category-filters__title {
+  margin-bottom: 0.5em;
+}
+
+.category-filters__filter {
+  margin: 0;
+  margin-top: 0.5em;
+
+  a {
+    text-decoration: none;
+    color: $brand-darkgray;
+
+    &.active {
+      color: $brand-purple;
+    }
+
+    &:hover {
+      color: $brand-mediumgray;
+    }
+  }
+}
+
+.color-filters {
+  margin-top: 24px;
+
+  @include media-query($medium-down) {
+    width: 50%;
+    display: inline-block;
+  }
+}
+
+.color-filters__title {
+  margin-bottom: 0.5em;
+}
+
+.color-options {
+  width: 100%;
+  max-width: 228px;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-column-gap: 20px;
+}
+
+.color-option {
+  width: 100%;
+  padding-top: 100%;
+  border: solid 2px $brand-darkgray;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: border 150ms ease-in;
+  
+  &:hover {
+    border-color: $brand-mediumgray;
+  }
+  
+  &--active {
+    border-color: $brand-green;
+
+    &:hover {
+      border-color: red;
+    }
+  }
+
+  &--grey {
+    background-color: $brand-mediumgray;
+  }
+
+  &--purple {
+    background-color: $brand-purple;
+  }
+
+  &--black {
+    background-color: black;
+  }
+
+  &--blue {
+    background-color: $brand-blue;
+  }
 }

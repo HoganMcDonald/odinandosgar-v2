@@ -3,5 +3,7 @@ export default {
     deviceType: 'desktop',
     headerIsLarge: true
   },
-  products: []
+  products: [],
+  search: '',
+  color: []
 };
